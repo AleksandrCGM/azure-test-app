@@ -1,0 +1,14 @@
+BEGIN;
+
+CREATE TABLE IF NOT EXISTS public.test (
+    id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    name TEXT NOT NULL UNIQUE
+);
+
+INSERT INTO public.test (name)
+VALUES ('bar'), ('baz'), ('qux')
+ON CONFLICT (name) DO NOTHING;
+
+COMMIT;
+
+SELECT * FROM public.test ORDER BY id;
